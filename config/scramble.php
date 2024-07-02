@@ -83,5 +83,9 @@ return [
         RestrictedDocsAccess::class,
     ],
 
-    'extensions' => [],
+    'extensions' => [
+        \App\Support\Documentation\GoToDefinitionOperationExtension::class,
+        \App\Support\Documentation\GoToDefinitionSchemaExtension::class,
+        \App\Support\Documentation\GoToDefinitionInputSchemaExtension::class,
+    ],
 ];
