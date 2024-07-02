@@ -6,7 +6,7 @@ When browsing the codebase, notice how there are no redundant PHPDoc annotations
 
 Cally's source: https://github.com/dedoc/demo-scramble-pro
 
-For every documented endpoint you'll find the link to the source file on GitHub in the endpoint's description. This is done, so you can quickly find and see the source code for any endpoint.
+For every documented endpoint and schema you'll find the link to the file on GitHub in the description, so you can quickly check the source.
 
 ## Authentication
 
