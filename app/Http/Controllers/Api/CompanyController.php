@@ -8,20 +8,36 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Spatie\LaravelData\PaginatedDataCollection;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CompanyController extends Controller
 {
     /**
      * List companies.
+     *
+     * List all the companies which looking for the applicants. With the ability to filter by name or creation date.
      */
     public function index(Request $request)
     {
-        $companies = Company::query()
-            ->when(
-                /** Search string for companies. Will search companies by `name` attribute. */
-                $request->get('q'),
-                fn ($q, $searchQuery) => $q->where('name', 'like', "%$searchQuery%")
-            )
+        $companies = QueryBuilder::for(Company::class)
+            ->allowedFields(['id', 'name', 'jobs.id', 'jobs.title', 'created_at'])
+            ->allowedFilters([
+                /**
+                 * The name to filter a company by. Multiple values can be passed, separated via `,` (`Nike,Tesla`)
+                 * @example Tesla
+                 */
+                'name',
+                /**
+                 * The date of the creation of the company.
+                 * @format date
+                 */
+                'created_at',
+            ])
+            ->allowedIncludes('jobs')
+            ->allowedSorts([
+                'name',
+                'created_at',
+            ])
             ->paginate($request->integer('per_page', 15));
 
         return CompanyData::collect($companies, PaginatedDataCollection::class);
