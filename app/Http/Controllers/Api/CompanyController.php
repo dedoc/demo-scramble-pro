@@ -38,7 +38,7 @@ class CompanyController extends Controller
                 'name',
                 'created_at',
             ])
-            ->paginate($request->integer('per_page', 15));
+            ->jsonPaginate();
 
         return CompanyData::collect($companies, PaginatedDataCollection::class);
     }
