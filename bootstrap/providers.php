@@ -1,6 +1,7 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+
 return [
-    App\Providers\ApiDocsProvider::class,
-    App\Providers\AppServiceProvider::class,
+    AppServiceProvider::class,
 ];

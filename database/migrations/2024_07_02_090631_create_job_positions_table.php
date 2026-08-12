@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('job_positions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('company_id')->index();
+            $table->string('title');
+            $table->string('status');
+            $table->json('salary_range');
             $table->timestamps();
         });
     }

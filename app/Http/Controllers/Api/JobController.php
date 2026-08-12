@@ -13,12 +13,15 @@ class JobController extends Controller
     /**
      * Create job.
      */
-    public function store(Company $company, JobPayloadData $jobPayload)
+    public function store(JobPayloadData $jobPayload)
     {
-        $job = Job::make($jobPayload);
+        $company = Company::findOrFail($jobPayload->companyId);
+        $job = $company->jobs()->create([
+            'title' => $jobPayload->title,
+            'status' => $jobPayload->status,
+            'salary_range' => $jobPayload->salaryRange,
+        ]);
 
-        $company->jobs()->save($job);
-
-        return JobData::from($job);
+        return response()->json(JobData::from($job), 201);
     }
 }
